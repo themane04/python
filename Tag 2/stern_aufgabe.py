@@ -1,13 +1,16 @@
-"Aufgabe 3"
-#print("*")
-#print("**")
-#print("***")
-#print("****")
-#print("*****")
-#print("****")
-#print("***")
-#print("**")
-#print("*")
+# Aufgabe 3
+
+""""
+print("*")
+print("**")
+print("***")
+print("****")
+print("*****")
+print("****")
+print("***")
+print("**")
+print("*")
+"""""
 
 max_stars = 20
 for i in range(1, max_stars + 1):

@@ -1,11 +1,11 @@
 person = {
-    "firstname":"Max",
-    "lastname":"Mustermann",
-    "age":"42",
-    "married":True,
+    "firstname": "Max",
+    "lastname": "Mustermann",
+    "age": "42",
+    "married": True,
     "kids": [
         {
-            "firstname":"Larissa",
+            "firstname": "Larissa",
             "age": 12
         },
         {

@@ -1,4 +1,5 @@
-"Aufgabe 1"
+"""Aufgabe 1"""
+
 n1 = 22
 n2 = 44
 n3 = 55

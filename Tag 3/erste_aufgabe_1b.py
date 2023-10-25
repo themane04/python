@@ -1,6 +1,7 @@
-#Aufgabe 1b
+# Aufgabe 1b
 def double(value):
     return value * 2
+
 
 a = float(input("Number: "))
 result = double(a)

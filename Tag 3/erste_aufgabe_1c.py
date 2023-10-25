@@ -1,5 +1,6 @@
-def double(a):
-    return a * 2
+def double(b):
+    return b * 2
+
 
 a = float(input("Number: "))
 

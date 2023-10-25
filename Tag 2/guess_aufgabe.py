@@ -1,5 +1,5 @@
 import random
-pnumber = random.randint(1,10)
+pnumber = random.randint(1, 10)
 
 user = 0
 

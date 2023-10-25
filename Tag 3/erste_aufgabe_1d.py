@@ -1,12 +1,13 @@
 def prob(x):
-    steps = 0
+    step = 0
     while x != 1:
         if x % 2 == 0:
             x = x // 2
         else:
             x = 3 * x + 1
-            steps += 1
-    return steps
+            step += 1
+    return step
+
 
 num = int(input("Your number: "))
 steps = prob(num)

@@ -1,11 +1,15 @@
-def change(numbers: list):
-    numbers.append(30)
+class Person:
+    def __init__(self, pet):
+        self.pets = [pet]
+
+    def add_pet(self, pet):
+        self.pets.append(pet)
 
 
-my_numbers = [10, 20]
+person1 = Person("Lion")
+person2 = Person("Snake")
+person1.add_pet("Cat")
+person1.pets.append("Dog")
 
-print('Vor der Funktion: ', my_numbers)
-
-change(my_numbers)
-
-print('Nach der Funktion: ', my_numbers)
+print(person1.pets)
+print(person2.pets)

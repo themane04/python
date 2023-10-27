@@ -7,16 +7,15 @@ class Person:
     def world():
         print("Hello World!")
 
-    @staticmethod
-    def addel(self, key, value):
-        self.key = value
-
     def get_name(self):
         return self.name
+
+    def add_str_with_value(cls, attribute, value):
+        setattr(cls, attribute, value)
 
 
 person1 = Person("John")
 person1.world()
 print(person1.name)
-print(Person.world())
-person1.addel("name", "thomas")
+person1.add_str_with_value("age", 14)
+print(person1.age)

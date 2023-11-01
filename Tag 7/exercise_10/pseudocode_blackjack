@@ -1,0 +1,49 @@
+Klasse Karte:
+    Eigenschaften:
+        - Wert (z.B. 2, 3, ..., König, Ass)
+        - Farbe (z.B. Herz, Karo, Pik, Kreuz)
+
+    Methoden:
+        - HoleWert() (gibt den Wert der Karte zurück, Ass kann 1 oder 11 sein, je nach Gesamtwert der Hand)
+
+Klasse Deck (Kartenstapel):
+    Eigenschaften:
+        - Liste von Karten
+
+    Methoden:
+        - MischeDeck() (mischt die Karten im Stapel)
+        - HoleKarte() (nimmt die oberste Karte vom Stapel und gibt sie zurück)
+
+Klasse Hand:
+    Eigenschaften:
+        - Liste von Karten
+        - Wert der Hand
+
+    Methoden:
+        - FügeKarteHinzu(Karte) (fügt eine Karte zur Hand hinzu und aktualisiert den Wert der Hand)
+        - HoleHandWert() (gibt den Gesamtwert der Hand zurück)
+
+Klasse Spieler:
+    Erbt von: Hand
+    Eigenschaften:
+        - Chips (Anzahl der Chips, die der Spieler hat)
+
+    Methoden:
+        - Setze(Anzahl) (setzt eine bestimmte Anzahl von Chips)
+        - Gewinne(Anzahl) (erhöht die Chipanzahl um den Gewinnbetrag)
+        - Verliere(Anzahl) (verringert die Chipanzahl um den verlorenen Betrag)
+
+Klasse Dealer:
+    Erbt von: Hand
+
+Main:
+    1. Erstelle ein Deck-Objekt und mische es.
+    2. Lass den Spieler die Anfangschips und das Ziel definieren.
+    3. Beginne eine neue Runde:
+        a. Der Spieler setzt eine Anzahl von Chips.
+        b. Verteile zwei Karten an den Spieler und den Dealer.
+        c. Zeige die Hand des Spielers und eine Karte des Dealers.
+        d. Lass den Spieler entscheiden, ob er eine weitere Karte will oder die Runde beenden will.
+        e. Wenn der Spieler seine Runde beendet, spielt der Dealer nach den Blackjack-Regeln.
+        f. Bestimme den Gewinner der Runde und aktualisiere die Chipanzahl des Spielers.
+    4. Überprüfe, ob der Spieler das Chip-Ziel erreicht hat oder keine Chips mehr hat. Wenn ja, beende das Spiel. Andernfalls gehe zu Schritt 3 zurück.

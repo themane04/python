@@ -1,0 +1,40 @@
+Initialize Variables
+Create a variable for the word to be guessed
+Create a variable for the number of allowed guesses
+Create a list or string to store correct guesses
+Create a counter for incorrect guesses
+Create variables for player 1 and player 2 names
+
+
+Get Player Names
+Ask for and store the names of both players
+
+
+Get the Word to Be Guessed
+Ask Player 1 for the word that Player 2 has to guess
+Make sure this input is hidden from the terminal
+
+
+Get the Number of Allowed Guesses
+Ask for the number of incorrect guesses Player 2 is allowed before losing
+
+
+Main Game Loop
+While the number of incorrect guesses is less than the allowed number:
+Display the State of the Game
+Show the current state of the guessed word, like "_ p p l e" if 'p' and 'e' have been guessed in the word 'apple'
+
+Player 2's Turn
+Ask Player 2 to guess a letter
+
+Check the Guess
+If the guessed letter is in the word, add it to the list of correct guesses
+
+If the guessed letter is not in the word, increment the counter of incorrect guesses
+
+Check for Win/Loss
+If all the letters of the word have been guessed, Player 2 wins
+If the number of incorrect guesses reaches the limit, Player 1 wins
+End of Game
+Announce the winner
+Optionally, ask if they want to play again

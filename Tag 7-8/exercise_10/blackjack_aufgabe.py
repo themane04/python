@@ -6,7 +6,7 @@ class Card:
         self.value = value
         self.suit = suit
 
-    def getvalue(self):
+    def get_value_card(self):
         if self.value in ["Jack", "Queen", "King"]:
             return 10
         elif self.value == "Ace":
@@ -30,5 +30,21 @@ class Deck:
     def cards_shuffle(self):
         random.shuffle(self.list_of_cards)
 
-    def drawcard(self):
+    def draw_card(self):
+        if len(self.list_of_cards) == 0:
+            return None
+        else:
+            drawcard = self.list_of_cards.pop(0)
+            return drawcard
+
+
+class Hand:
+    def __init__(self, value_of_hand):
+        self.hand_cards = []
+        self.value_of_hand = value_of_hand
+
+    def add_card(self, card):
+        pass
+
+    def get_hand_value(self):
         pass

@@ -1,5 +1,5 @@
 def clear_screen():
-    print("\n" * 100)
+    print("\n" * 50)
 
 
 correct_guesses = []
@@ -13,7 +13,7 @@ while player1 == player2:
 else:
     pass
 
-guess_word = input(f"{player1} type in the word: ")
+guess_word = input(f"{player1} type in the word: ").upper()
 clear_screen()
 number_of_incorrect_guesses = int(input(f"How many incorrect guesses is {player2} allowed to: "))
 score = number_of_incorrect_guesses
@@ -21,14 +21,13 @@ player_names = [player1, player2]
 show_word = "_" * len(guess_word)
 
 while len(incorrect_guesses) < number_of_incorrect_guesses:
+    letter_guess = input("Type in a letter: ").upper()
 
-    if "_" not in show_word:
+    if "_" not in show_word or letter_guess == guess_word:
         print(f"Congratualations. {player2} has won!")
         break
 
-    letter_guess = input("Type in a letter: ")
-
-    if letter_guess not in guess_word:
+    elif letter_guess not in guess_word:
         score -= 1
         print("Guesses left: ", score)
     else:
@@ -46,6 +45,5 @@ while len(incorrect_guesses) < number_of_incorrect_guesses:
 
     show_word = "".join(display_word_list)
     print(show_word)
-
 if "_" in show_word:
-    print(f"Nice Try! {player2} has won!")
+    print(f"Nice Try! {player1} has won!")

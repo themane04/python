@@ -1,49 +1,49 @@
-Klasse Karte:
-    Eigenschaften:
-        - Wert (z.B. 2, 3, ..., König, Ass)
-        - Farbe (z.B. Herz, Karo, Pik, Kreuz)
+Class Card:
+    Properties:
+        - Value (e.g. 2, 3, ..., King, Ace)
+        - Suit (e.g. Hearts, Diamonds, Spades, Clubs)
 
-    Methoden:
-        - HoleWert() (gibt den Wert der Karte zurück, Ass kann 1 oder 11 sein, je nach Gesamtwert der Hand)
+    Methods:
+        - GetValue() (returns the value of the card, Ace can be 1 or 11 depending on total hand value)
 
-Klasse Deck (Kartenstapel):
-    Eigenschaften:
-        - Liste von Karten
+Class Deck:
+    Properties:
+        - List of Cards
 
-    Methoden:
-        - MischeDeck() (mischt die Karten im Stapel)
-        - HoleKarte() (nimmt die oberste Karte vom Stapel und gibt sie zurück)
+    Methods:
+        - Shuffle() (shuffles the cards in the deck)
+        - DrawCard() (draws the top card from the deck and returns it)
 
-Klasse Hand:
-    Eigenschaften:
-        - Liste von Karten
-        - Wert der Hand
+Class Hand:
+    Properties:
+        - List of Cards
+        - Value of Hand
 
-    Methoden:
-        - FügeKarteHinzu(Karte) (fügt eine Karte zur Hand hinzu und aktualisiert den Wert der Hand)
-        - HoleHandWert() (gibt den Gesamtwert der Hand zurück)
+    Methods:
+        - AddCard(Card) (adds a card to the hand and updates the value of the hand)
+        - GetHandValue() (returns the total value of the hand)
 
-Klasse Spieler:
-    Erbt von: Hand
-    Eigenschaften:
-        - Chips (Anzahl der Chips, die der Spieler hat)
+Class Player:
+    Inherits from: Hand
+    Properties:
+        - Chips (amount of chips the player has)
 
-    Methoden:
-        - Setze(Anzahl) (setzt eine bestimmte Anzahl von Chips)
-        - Gewinne(Anzahl) (erhöht die Chipanzahl um den Gewinnbetrag)
-        - Verliere(Anzahl) (verringert die Chipanzahl um den verlorenen Betrag)
+    Methods:
+        - Bet(amount) (bets a certain amount of chips)
+        - Win(amount) (increases chip count by the winning amount)
+        - Lose(amount) (decreases chip count by the lost amount)
 
-Klasse Dealer:
-    Erbt von: Hand
+Class Dealer:
+    Inherits from: Hand
 
 Main:
-    1. Erstelle ein Deck-Objekt und mische es.
-    2. Lass den Spieler die Anfangschips und das Ziel definieren.
-    3. Beginne eine neue Runde:
-        a. Der Spieler setzt eine Anzahl von Chips.
-        b. Verteile zwei Karten an den Spieler und den Dealer.
-        c. Zeige die Hand des Spielers und eine Karte des Dealers.
-        d. Lass den Spieler entscheiden, ob er eine weitere Karte will oder die Runde beenden will.
-        e. Wenn der Spieler seine Runde beendet, spielt der Dealer nach den Blackjack-Regeln.
-        f. Bestimme den Gewinner der Runde und aktualisiere die Chipanzahl des Spielers.
-    4. Überprüfe, ob der Spieler das Chip-Ziel erreicht hat oder keine Chips mehr hat. Wenn ja, beende das Spiel. Andernfalls gehe zu Schritt 3 zurück.
+    1. Create a Deck object and shuffle it.
+    2. Let the player define starting chips and target.
+    3. Start a new round:
+        a. Player places a bet with a certain amount of chips.
+        b. Deal two cards each to the player and the dealer.
+        c. Show player's hand and one card of the dealer.
+        d. Let the player decide if they want another card or end their turn.
+        e. If player ends their turn, let dealer play according to Blackjack rules.
+        f. Determine round winner and update player's chip count.
+    4. Check if player reached chip target or is out of chips. If so, end game. Otherwise, go back to step 3.

@@ -24,7 +24,7 @@ while len(incorrect_guesses) < number_of_incorrect_guesses:
     letter_guess = input("Type in a letter: ").upper()
 
     if "_" not in show_word or letter_guess == guess_word:
-        print(f"Congratualations. {player2} has won!")
+        print(f"Congratualations. {player2} has won! The word was {guess_word}")
         break
 
     elif letter_guess not in guess_word:
@@ -45,5 +45,6 @@ while len(incorrect_guesses) < number_of_incorrect_guesses:
 
     show_word = "".join(display_word_list)
     print(show_word)
+
 if "_" in show_word:
     print(f"Nice Try! {player1} has won!")

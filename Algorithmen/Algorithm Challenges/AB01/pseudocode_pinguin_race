@@ -1,0 +1,26 @@
+Class Definition:
+Define a class named PenguinRaceCalculator.
+The constructor (__init__) should take two arguments: race_snapshot (a list of the current race positions) and
+penguin_names (a list of the names of participating penguins).
+
+Initialization:
+Store the passed arguments in class variables.
+
+Calculate Progress:
+Inside the class, define a function calculate_progress.
+This function calculates the progress for each penguin in race_snapshot, based on the number of calm ("-") and
+turbulent ("~") waters preceding the penguin ("p").
+Calm water contributes more to progress than turbulent water.
+
+Determine Winners:
+Define a function get_winners within the class.
+Use calculate_progress to calculate each penguin's progress.
+Rank the penguins based on their progress.
+
+Format Winners:
+The get_winners function should return the names of the penguins with the most progress in the format
+"GOLD: [name], SILVER: [name], BRONZE: [name]".
+Ensure the names are matched correctly to their progress from race_snapshot.
+Handle More Than Three Penguins:
+
+If there are more than three penguins, still only return the top three as winners.

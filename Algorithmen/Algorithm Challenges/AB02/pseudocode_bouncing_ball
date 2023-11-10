@@ -1,0 +1,16 @@
+- Beginne mit der Überprüfung der Bedingungen:
+  - Ist die Anfangshöhe des Falls (`h`) größer als 0?
+  - Liegt der Rückprallfaktor (`bounce`) zwischen 0 und 1 (ausschließlich)?
+  - Ist die Fensterhöhe (`window`) niedriger als die Anfangshöhe des Falls?
+
+- Falls eine dieser Bedingungen nicht erfüllt ist:
+  - Gib -1 zurück.
+
+- Initialisiere einen Zähler für die Anzahl der Sichtungen der Mutter (`sichtungen`) auf 0.
+
+- Wiederhole folgende Schritte, solange die Höhe des Balls nach dem Aufprall (aktualisierte `h`) größer als die Fensterhöhe ist:
+  - Multipliziere die aktuelle Höhe (`h`) mit dem Rückprallfaktor (`bounce`), um die neue Höhe zu erhalten.
+  - Falls es der erste Fall ist, erhöhe `sichtungen` um 1.
+  - Für jeden weiteren Aufprall, der die Fensterhöhe überschreitet, erhöhe `sichtungen` um 2 (einmal beim Fallen und einmal beim Aufspringen).
+
+- Gib die Gesamtanzahl der Sichtungen (`sichtungen`) zurück.

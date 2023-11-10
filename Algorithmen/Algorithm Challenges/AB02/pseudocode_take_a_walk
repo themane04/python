@@ -1,0 +1,13 @@
+Funktion isValidWalk(walk):
+    - Wenn die Länge von walk ungleich 10 ist:
+        - Gib FALSE zurück
+
+    - Initialisiere Variablen für Nord-Süd- und Ost-West-Position
+    - Für jeden Schritt im walk:
+        - Wenn Schritt == 'n', erhöhe Nord-Süd-Position
+        - Wenn Schritt == 's', verringere Nord-Süd-Position
+        - Wenn Schritt == 'e', erhöhe Ost-West-Position
+        - Wenn Schritt == 'w', verringere Ost-West-Position
+
+    - Überprüfe, ob Nord-Süd- und Ost-West-Position beide 0 sind
+    - Wenn ja, gib TRUE zurück, sonst FALSE

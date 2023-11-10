@@ -1,0 +1,10 @@
+Funktion berechnePyramidenHoehe(kugeln):
+    Setze level auf 0
+    Setze kugelnInLevel auf 1
+
+    Während kugeln >= kugelnInLevel:
+        Reduziere kugeln um kugelnInLevel
+        Erhöhe level um 1
+        Erhöhe kugelnInLevel um 1
+
+    Gib level zurück

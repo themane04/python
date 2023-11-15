@@ -1,0 +1,25 @@
+Function Definition:
+Define a function with a meaningful name.
+It should accept one parameter, representing the side length of the square game screen.
+
+Initialize Variables:
+Create a variable for the snake's size, starting at 1 block.
+Initialize a counter variable to track how many times the snake eats.
+
+Total Blocks Calculation:
+Calculate the total number of blocks on the game screen. This is the side length squared.
+
+Eating Loop:
+Use a loop to simulate the snake eating and growing.
+Continue the loop until the snake's size is greater than or equal to the total blocks.
+
+Inside the loop:
+Double the snake's size (snake size *= 2).
+Increment the eating counter.
+
+Return the Result:
+Once the snake fills the screen, exit the loop.
+Return the counter indicating how many times the snake has eaten.
+
+Function Testing:
+Test the function with various side lengths to ensure accuracy.

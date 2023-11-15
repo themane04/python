@@ -1,0 +1,41 @@
+Define the Function:
+Start by defining a Python function
+with a name that matches the one in the exercise.
+Use def to start the definition.
+
+Use Arbitrary Keyword Arguments:
+Inside the function's parentheses, use **kwargs to allow
+it to accept any number of keyword arguments.
+This is crucial because your function needs to handle
+an undefined number of parameters with keys.
+
+Create an Empty List:
+Inside the function, start by creating an empty list.
+This will be used to store the information about each argument.
+
+Iterate Over Arguments:
+Use a loop to iterate over the kwargs dictionary.
+Each iteration will give you a key (the parameter name) and
+a value (the parameter's value).
+
+Get Type and Value: For each key-value pair in the kwargs,
+get the type of the value using the type() function.
+However, you need to convert the type object to a string
+that matches the examples (like 'str', 'int', etc.).
+You may need to use string manipulation methods or a
+mapping approach for this.
+
+Append to the List:
+Create a small list for each key-value pair where the
+first element is the string representation of the type and
+the second element is the value. Append this small list to
+the main list you created in step 3.
+
+Return the List:
+After the loop finishes, return the list you've been
+building up.
+
+Test the Function:
+To ensure your function works as intended, call it with
+various arguments and print the result, just like the
+examples in the exercise.

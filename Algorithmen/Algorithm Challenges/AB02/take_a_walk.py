@@ -20,6 +20,6 @@ def is_valid_walk(walk):
         return False
 
 
-first_walk = ["n", "s", "n", "s", "n", "s", "n", "s", "n"]
+first_walk = ["n", "s", "n", "s", "n", "s", "n", "s", "n", "s"]
 result = is_valid_walk(walk=first_walk)
 print("Is the walk correct: ", result)

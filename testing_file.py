@@ -1,18 +1,29 @@
-import threading
+roman_map = [
+    (1000, "M"),
+    (900, "CM"),
+    (500, "D"),
+    (400, "CD"),
+    (100, "C"),
+    (90, "XC"),
+    (50, "L"),
+    (40, "XL"),
+    (10, "X"),
+    (9, "IX"),
+    (5, "V"),
+    (4, "IV"),
+    (1, "I"),
+]
 
 
-def append_ok_indefinitely(i):
-    print(f"Thread {i}")
-    a = []
-    while True:
-        a.append("ok")
+def into_roman(num):
+    res = ""
+    while num > 0:
+        for i, r in roman_map:
+            while num >= i:
+                res += r
+                num -= i
+    return res
 
 
-threads = list()
-# Create a thread that runs the append_ok_indefinitely function
-for i in range(8):
-    thread = threading.Thread(target=append_ok_indefinitely, args=(i, ))
-    threads.append(thread)
-# Start the thread
-for i in threads:
-    i.start()
+num = int(input("Enter a number: "))
+print(into_roman(num))

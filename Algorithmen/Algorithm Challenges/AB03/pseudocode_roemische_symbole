@@ -1,0 +1,19 @@
+Klasse RomanNumerals
+    Methode to_roman(zahl)
+        # Wandelt eine ganze Zahl in eine römische Zahl um
+        # Beispiel: RomanNumerals.to_roman(1000) gibt 'M' zurück
+
+Methode from_roman:
+    - Setze einen Index 'i' auf 0
+    - Wiederhole für jedes Zeichen in 'user_input':
+        - Bestimme den aktuellen Wert 'aktuell' als Wert des Zeichens an Position 'i' in 'roman_symbols'
+        - Wenn 'i + 1' kleiner als die Länge von 'user_input' ist:
+            - Bestimme den nächsten Wert 'naechstes' als Wert des Zeichens an Position 'i + 1' in 'roman_symbols'
+            - Wenn 'aktuell' kleiner als 'naechstes' ist:
+                - Subtrahiere 'aktuell' von 'result'
+            - Sonst:
+                - Addiere 'aktuell' zu 'result'
+        - Sonst (wenn es kein nächstes Zeichen gibt):
+            - Addiere 'aktuell' zu 'result'
+        - Erhöhe 'i' um 1
+    - Gib 'result' zurück

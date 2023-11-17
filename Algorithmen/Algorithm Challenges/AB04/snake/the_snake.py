@@ -16,6 +16,7 @@ print(the_snake)
 
 # setting up
 import pygame
+import random
 
 pygame.init()
 screen_width = 800
@@ -33,8 +34,16 @@ snake_eye_color = (255, 255, 255)
 snake_speed = 4
 snake_score = 0
 direction = "RIGHT"
+
 rat = pygame.image.load("rat.png")
+rat_rect = rat.get_rect()
 smaller_rat = pygame.transform.scale(rat, (45, 45))
+
+
+def spawn_rat():
+    rat_rect.x = random.randint(0, screen_width - rat_rect.width)
+    rat_rect.y = random.randint(0, screen_height - rat_rect.width)
+
 
 exit_ = False
 # game loop

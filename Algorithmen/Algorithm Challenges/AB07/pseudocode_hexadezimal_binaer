@@ -1,0 +1,22 @@
+Function transform_text(text, format):
+    Initialize an empty list to hold the transformed values
+
+    For each character in the text:
+        Get the ASCII value of the character
+
+        If the format is "Hex":
+            Convert the ASCII value to a hexadecimal string
+            Add the hexadecimal string to the list, prefixed with "0x"
+
+        Else if the format is "Binary":
+            Convert the ASCII value to a binary string
+            Add the binary string to the list, prefixed with "0b"
+
+    Join the list of transformed values into a single string with spaces between them
+
+    Return the resulting string
+
+Function character_to_hex(character):
+    ascii_value = get_ascii_value(character)  // Convert character to its ASCII value
+    hex_value = convert_to_hex(ascii_value)  // Convert ASCII value to hexadecimal string
+    Return hex_value

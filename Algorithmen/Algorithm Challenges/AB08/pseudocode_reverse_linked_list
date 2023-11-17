@@ -1,0 +1,13 @@
+Function reverse_linked_list(head_of_list):
+    Initialize three pointers: previous, current, and next_node
+    Set previous to None (since the new tail will have no next node)
+    Set current to the head_of_list (starting point of the original list)
+
+    While current is not None:
+        Save the next node (current.next) to next_node (to keep track of the original order)
+        Set current.next to previous (reversing the link)
+        Move previous to current (advance previous one step forward)
+        Move current to next_node (advance current one step forward in the original order)
+
+    At the end of the loop, previous will be at the new head of the reversed list
+    Return previous (new head of the reversed list)

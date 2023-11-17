@@ -3,9 +3,9 @@ import re
 
 def is_creditcard_valid():
     user_input = input("Type in your credit card: ")
-    valid_card_template = re.compile(r"^(?!(\d)(\1{3}))[456](?=(?:\d{4}-){3}\d{4}$|\d{16}$)(?:\d{4}-?){3}\d{4}$")
+    valid_card_template = re.compile(r"^(?!.*(\d)\1\1\1)[4-6][0-9]{3}((-[0-9]{4}){3}|[0-9]{12})$")
 
-    if valid_card_template.match(user_input):
+    if valid_card_template.search(user_input):
         return True
     else:
         return False

@@ -1,0 +1,21 @@
+Define a function named 'add_thousands_separator' which takes a number as its input:
+    First, check if the input number is positive.
+    If the number is not positive, return an error message.
+
+    Convert the number into a string.
+
+    Initialize an empty string to store the final result.
+
+    Set a counter to zero. This counter will keep track of the number of characters processed.
+
+    Starting from the end of the number string, iterate over each character:
+        Append the current character to the beginning of the result string.
+
+        Increase the counter by one.
+
+        Check if the counter is a multiple of three and the character is not the first character in the number string:
+            If true, insert a separator symbol (like an apostrophe or comma) at the beginning of the result string.
+
+    Once all characters are processed, return the result string as the output.
+
+End of the function.

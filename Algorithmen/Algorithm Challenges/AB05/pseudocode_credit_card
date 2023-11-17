@@ -1,0 +1,16 @@
+Funktion is_creditcard_valid(Kreditkartennummer):
+    // Erstelle ein Regex-Muster, das den Regeln entspricht:
+    // 1. Beginnt mit 4, 5 oder 6.
+    // 2. Exakt 16 Zahlen (0-9).
+    // 3. Zahlen können in 4er Gruppen mit Bindestrich getrennt sein.
+    // 4. Keine anderen Trennzeichen.
+    // 5. Keine Zahl darf 4 Mal oder mehr in Folge auftreten.
+    Regex = "^(?!(\d)(\1{3}))[456](?=(?:\d{4}-){3}\d{4}$|\d{16}$)(?:\d{4}-?){3}\d{4}$"
+
+    // Überprüfe, ob die Kreditkartennummer dem Regex-Muster entspricht
+    Wenn Kreditkartennummer entspricht dem Regex-Muster:
+        Gib True zurück // Die Karte ist valide
+    Sonst:
+        Gib False zurück // Die Karte ist nicht valide
+
+Ende der Funktion

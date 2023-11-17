@@ -1,0 +1,17 @@
+Funktion überprüfeSicht(Sitzreihen):
+    // Gehe jede Reihe durch, beginnend mit der zweiten
+    Für jede Reihe i von 1 bis Länge von Sitzreihen - 1:
+        // Gehe jeden Sitz in der Reihe durch
+        Für jeden Sitz j von 0 bis Länge von Sitzreihen[i] - 1:
+            // Überprüfe, ob die aktuelle Reihe länger ist als die vorherige
+            Wenn j >= Länge von Sitzreihen[i - 1] Dann:
+                // Kein direkter Vordersitz, weiter zum nächsten Sitz
+                Weiter
+
+            // Überprüfe, ob der Sitz höher ist als der direkt vor ihm
+            Wenn Sitzreihen[i][j] <= Sitzreihen[i - 1][j] Dann:
+                // Sicht ist blockiert, gib False zurück
+                Gib False zurück
+
+    // Wenn alle Sitze überprüft sind und die Sicht nirgends blockiert ist, gib True zurück
+    Gib True zurück

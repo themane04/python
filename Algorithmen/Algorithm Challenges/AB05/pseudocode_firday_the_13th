@@ -1,0 +1,9 @@
+Funktion has_friday_13(Monat, Jahr):
+    // Erstelle ein Datum für den 13ten des gegebenen Monats und Jahres
+    Datum = neues Datum(Jahr, Monat, 13)
+
+    // Überprüfe, ob der Wochentag des Datums Freitag ist
+    Wenn Wochentag(Datum) ist Freitag Dann:
+        Gib True zurück
+    Sonst:
+        Gib False zurück

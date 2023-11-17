@@ -1,29 +1,10 @@
-roman_map = [
-    (1000, "M"),
-    (900, "CM"),
-    (500, "D"),
-    (400, "CD"),
-    (100, "C"),
-    (90, "XC"),
-    (50, "L"),
-    (40, "XL"),
-    (10, "X"),
-    (9, "IX"),
-    (5, "V"),
-    (4, "IV"),
-    (1, "I"),
-]
+def thousands_separator(num: int) -> str:
+    string = str(num)
+    for i in range(len(string) - 3, 0, -3):
+        string = string[:i] + "'" + string[i:]
+
+    return string
 
 
-def into_roman(num):
-    res = ""
-    while num > 0:
-        for i, r in roman_map:
-            while num >= i:
-                res += r
-                num -= i
-    return res
-
-
-num = int(input("Enter a number: "))
-print(into_roman(num))
+func = thousands_separator(1000000000000)
+print(func)

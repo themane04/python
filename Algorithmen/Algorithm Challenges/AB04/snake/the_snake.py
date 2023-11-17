@@ -45,6 +45,8 @@ def spawn_rat():
     rat_rect.y = random.randint(0, screen_height - rat_rect.width)
 
 
+spawn_rat()
+
 exit_ = False
 # game loop
 while not exit_:
@@ -113,9 +115,13 @@ while not exit_:
         eye_x = snake_pos[0] + snake_size[0] // 2
         eye_y = snake_pos[1] + snake_size[1] - EYE_OFFSET
 
+    if pygame.Rect(snake_pos[0], snake_pos[1], snake_size[0], snake_size[1]).colliderect(rat_rect):
+        snake_size += 1
+        spawn_rat()
+
     # Draw the eye
     pygame.draw.circle(display, snake_eye_color, (eye_x, eye_y), EYE_RADIUS)
-    display.blit(smaller_rat, (40, 50))
+    display.blit(smaller_rat, rat_rect)
 
     pygame.display.update()
     clock.tick(60)

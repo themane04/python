@@ -19,33 +19,54 @@ import pygame
 import random
 
 pygame.init()
+
 screen_width = 800
 screen_height = 600
 display = pygame.display.set_mode((800, 600))
 display_background_color = (0, 102, 51)
 clock = pygame.time.Clock()
 pygame.display.set_caption("The Snake")
-
-# snake properties and rat
-snake_pos = [100, 100]
-snake_size = (50, 20)
-snake_color = (0, 0, 0)
-snake_eye_color = (255, 255, 255)
-snake_speed = 4
-snake_score = 0
-direction = "RIGHT"
-
-rat = pygame.image.load("rat.png")
-rat_rect = rat.get_rect()
-smaller_rat = pygame.transform.scale(rat, (45, 45))
+font = pygame.font.Font(None, 36)
 
 
-def spawn_rat():
-    rat_rect.x = random.randint(0, screen_width - rat_rect.width)
-    rat_rect.y = random.randint(0, screen_height - rat_rect.width)
+class Snake:
+    def __init__(self):
+        self.position = [100, 100]
+        self.body = [[100, 100]]
+        self.size = (50, 15)
+        self.color = (0, 0, 0)
+        self.eye_color = (255, 255, 255)
+        self.speed = 4
+        self.direction = "RIGHT"
+        self.score = 0
+
+    def grow(self):
+        tail = self.body[-1]
+        if self.direction == "RIGHT":
+            self.body.append([tail[0] - self.size[0], tail[1]])
+        elif self.direction == "LEFT":
+            self.body.append([tail[0] + self.size[0], tail[1]])
+        elif self.direction == "UP":
+            self.body.append([tail[0], tail[1] - self.size[1]])
+        elif self.direction == "DOWN":
+            self.body.append([tail[0], tail[1] + self.size[1]])
 
 
-spawn_rat()
+class Rat:
+    def __init__(self, rat_img):
+        self.rat_img = rat_img
+        self.rat_rect = self.rat_img.get_rect()
+        self.spawn()
+
+    def spawn(self):
+        self.rat_rect.x = random.randint(0, screen_width - self.rat_rect.width)
+        self.rat_rect.y = random.randint(0, screen_height - self.rat_rect.height)
+
+
+big_rat_img = pygame.image.load("rat.png")
+smaller_rat_img = pygame.transform.scale(big_rat_img, (45, 45))
+snake = Snake()
+rat = Rat(smaller_rat_img)
 
 exit_ = False
 # game loop
@@ -57,71 +78,81 @@ while not exit_:
             exit_ = True
         # Handle key events
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a and direction != "RIGHT":
-                direction = "LEFT"
-                snake_size = (50, 20)  # Snake vertical
-            elif event.key == pygame.K_d and direction != "LEFT":
-                direction = "RIGHT"
-                snake_size = (50, 20)  # Snake horizontal
-            elif event.key == pygame.K_w and direction != "DOWN":
-                direction = "UP"
-                snake_size = (20, 50)  # Snake vertical
-            elif event.key == pygame.K_s and direction != "UP":
-                direction = "DOWN"
-                snake_size = (20, 50)  # Snake horizontal
+            if event.key == pygame.K_a and snake.direction != "RIGHT":
+                snake.direction = "LEFT"
+                snake.size = (50, 15)  # Snake vertical
+            elif event.key == pygame.K_d and snake.direction != "LEFT":
+                snake.direction = "RIGHT"
+                snake.size = (50, 15)  # Snake horizontal
+            elif event.key == pygame.K_w and snake.direction != "DOWN":
+                snake.direction = "UP"
+                snake.size = (15, 50)  # Snake vertical
+            elif event.key == pygame.K_s and snake.direction != "UP":
+                snake.direction = "DOWN"
+                snake.size = (15, 50)  # Snake horizontal
 
-    # Update snake position
-    if direction == "RIGHT":
-        snake_pos[0] += snake_speed
-    elif direction == "LEFT":
-        snake_pos[0] -= snake_speed
-    elif direction == "UP":
-        snake_pos[1] -= snake_speed
-    elif direction == "DOWN":
-        snake_pos[1] += snake_speed
+    new_head = [snake.body[0][0], snake.body[0][1]]
+
+    if snake.direction == "RIGHT":
+        new_head[0] += snake.speed
+    elif snake.direction == "LEFT":
+        new_head[0] -= snake.speed
+    elif snake.direction == "UP":
+        new_head[1] -= snake.speed
+    elif snake.direction == "DOWN":
+        new_head[1] += snake.speed
+
+    snake.body = [new_head] + snake.body[:-1]
+
+    snake_head_rect = pygame.Rect(snake.body[0][0], snake.body[0][1], snake.size[0], snake.size[1])
+    if snake_head_rect.colliderect(rat.rat_rect):
+        rat.spawn()
+        snake.score += 1
+        snake.grow()
+
+    score_text = font.render(f"Score: {snake.score}", True, (255, 255, 255))
+    display.blit(score_text, (10, 10))
 
     # screen weapping
-    if snake_pos[0] >= screen_width:  # off the right side
-        snake_pos[0] = 0
-    elif snake_pos[0] < 0:  # off the left side
-        snake_pos[0] = screen_width
+    head = snake.body[0]
+    if head[0] >= screen_width:  # Off the right side
+        head[0] = 0
+    elif head[0] < 0:  # Off the left side
+        head[0] = screen_width - snake.size[0]
 
-    if snake_pos[1] >= screen_height:  # off the bottom
-        snake_pos[1] = 0
-    elif snake_pos[1] < 0:  # off the top
-        snake_pos[1] = screen_height
+    if head[1] >= screen_height:  # Off the bottom
+        head[1] = 0
+    elif head[1] < 0:  # Off the top
+        head[1] = screen_height - snake.size[1]
 
     # Draw the snake
-    pygame.draw.rect(display, snake_color, pygame.Rect(snake_pos[0], snake_pos[1], snake_size[0], snake_size[1]),
-                     border_radius=round(5))
+    for segment in snake.body:
+        pygame.draw.rect(display, snake.color, pygame.Rect(segment[0], segment[1], snake.size[0], snake.size[1]),
+                         border_radius=round(4))
 
     # Constants for the eye's position
-    EYE_RADIUS = 5
+    EYE_RADIUS = 3
     EYE_OFFSET = 7
-    eye_x = snake_pos[0] + snake_size[0] // 2
-    eye_y = snake_pos[1] + snake_size[1] // 2
+    eye_x = head[0] + snake.size[0] // 2
+    eye_y = head[1] + snake.size[1] // 2
 
     # Position the eye based on the direction
-    if direction == "RIGHT":
-        eye_x = snake_pos[0] + snake_size[0] - EYE_OFFSET
-        eye_y = snake_pos[1] + snake_size[1] // 2
-    elif direction == "LEFT":
-        eye_x = snake_pos[0] + EYE_OFFSET
-        eye_y = snake_pos[1] + snake_size[1] // 2
-    elif direction == "UP":
-        eye_x = snake_pos[0] + snake_size[0] // 2
-        eye_y = snake_pos[1] + EYE_OFFSET
-    elif direction == "DOWN":
-        eye_x = snake_pos[0] + snake_size[0] // 2
-        eye_y = snake_pos[1] + snake_size[1] - EYE_OFFSET
-
-    if pygame.Rect(snake_pos[0], snake_pos[1], snake_size[0], snake_size[1]).colliderect(rat_rect):
-        snake_size += 1
-        spawn_rat()
+    if snake.direction == "RIGHT":
+        eye_x = head[0] + snake.size[0] - EYE_OFFSET
+        eye_y = head[1] + snake.size[1] // 2
+    elif snake.direction == "LEFT":
+        eye_x = head[0] + EYE_OFFSET
+        eye_y = head[1] + snake.size[1] // 2
+    elif snake.direction == "UP":
+        eye_x = head[0] + snake.size[0] // 2
+        eye_y = head[1] + EYE_OFFSET
+    elif snake.direction == "DOWN":
+        eye_x = head[0] + snake.size[0] // 2
+        eye_y = head[1] + snake.size[1] - EYE_OFFSET
 
     # Draw the eye
-    pygame.draw.circle(display, snake_eye_color, (eye_x, eye_y), EYE_RADIUS)
-    display.blit(smaller_rat, rat_rect)
+    pygame.draw.circle(display, snake.eye_color, (eye_x, eye_y), EYE_RADIUS)
+    display.blit(smaller_rat_img, rat.rat_rect)
 
     pygame.display.update()
     clock.tick(60)

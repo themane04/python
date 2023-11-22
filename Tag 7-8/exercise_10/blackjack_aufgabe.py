@@ -1,5 +1,6 @@
 import random
 import time
+import os
 
 
 class Card:
@@ -44,7 +45,7 @@ class Deck:
 
 class Hand:
     def __str__(self):
-        return ", ".join([card for card in self.hand_cards])
+        return ", ".join(str(card) for card in self.hand_cards)
 
     def __init__(self, value_of_hand=0, player_chip=0, player_balance=0, bet_amount=0):
         self.bet_amount = bet_amount
@@ -67,8 +68,9 @@ class Hand:
 
         if self.value_of_hand > 21:
             for c in self.hand_cards:
-                if c.value == "Ace" and c.value != 1:
+                if c.value == "Ace" and c.get_value_card() != 1:  # if Ace is counted as 11
                     self.value_of_hand -= 10
+                    c.value = 1  # Mark Ace as counted as 1
                     if self.value_of_hand <= 21:
                         break
 
@@ -126,77 +128,117 @@ def gameover_animation():
 
 print("Prepare to lose everything.")
 dot_animation()
+try:
+    running = True
+    while running:
 
-running = True
-while running:
+        while True:
+            try:
+                player_chips = int(input("Enter starting chips: "))
+                while player_chips <= 0 or player_chips > 1000000:
+                    print("The number can not be zero or smaller than zero and it needs to be under one million")
+                    player_chips = int(input("Enter starting chips: "))
+                break
+            except ValueError:
+                print("Please enter a valid number for starting chips.")
+            except KeyboardInterrupt:
+                print("\nExiting game. Thanks for playing!")
+                exit(0)
 
-    player_chips = int(input("Enter starting chips: "))
-    chip_target = int(input("Enter chip target: "))
-    dot_animation()
-
-    while 0 < player_chips < chip_target:
-        deck = Deck()
-        deck.cards_shuffle()
-        print("The round starts now.")
-        player_bet = int(input("Bet amount: "))
-
-        player_hand = Hand()
-        dealer_hand = Hand()
-
-        player_hand.add_card(deck.draw_card())
-        player_hand.add_card(deck.draw_card())
-
-        dealer_hand.add_card(deck.draw_card())
-        dealer_hand.add_card(deck.draw_card())
+        while True:
+            try:
+                chip_target = int(input("Enter chip target: "))
+                while chip_target <= 0 or chip_target > 1000000:
+                    print("The number can not be zero or smaller than zero and it needs to be under one million")
+                    chip_target = int(input("Enter chip target: "))
+                break
+            except ValueError:
+                print("Please enter a valid number for chip target.")
+            except KeyboardInterrupt:
+                print("\nExiting game. Thanks for playing!")
+                exit(0)
 
         dot_animation()
-        print("Your hand: ", *player_hand.hand_cards, "-Total value: ", player_hand.get_hand_value())
-        print("Dealer shows: ", dealer_hand.hand_cards[0], "-Total value: ", dealer_hand.hand_cards[0].value)
+        while 0 < player_chips < chip_target:
+            deck = Deck()
+            deck.cards_shuffle()
+            print("The round starts now.")
+            while True:
+                try:
+                    player_bet = int(input("Bet amount: "))
+                    while player_bet > player_chips:
+                        print("The bet can not be more than your chips")
+                        player_bet = int(input("Bet amount: "))
+                    break
+                except ValueError:
+                    print("Please enter a valid number for the bet!!")
+                except KeyboardInterrupt:
+                    print("\nExiting game. Thanks for playing!")
+                    exit(0)
 
-        player_choice = input("Hit or stand?: ").upper()
-        while player_choice == "HIT":
+            player_hand = Hand()
+            dealer_hand = Hand()
+
             player_hand.add_card(deck.draw_card())
+            player_hand.add_card(deck.draw_card())
+
             dealer_hand.add_card(deck.draw_card())
+            dealer_hand.add_card(deck.draw_card())
+
+            dot_animation()
             print("Your hand: ", *player_hand.hand_cards, "-Total value: ", player_hand.get_hand_value())
+            print("Dealer shows: ", dealer_hand.hand_cards[0], "-Total value: ", dealer_hand.hand_cards[0].value)
+
+            while True:
+                player_choice = input("Hit or stand?: ").upper()
+                if player_choice == "HIT":
+                    player_hand.add_card(deck.draw_card())
+                    print("Your hand: ", *player_hand.hand_cards, "-Total value: ", player_hand.get_hand_value())
+                    if player_hand.get_hand_value() > 21:
+                        break
+                elif player_choice == "STAND":
+                    break
+                else:
+                    print("Please choose either hit or stand!!")
+
+            if player_hand.get_hand_value() <= 21:
+                while dealer_hand.get_hand_value() < 17:
+                    dealer_hand.add_card(deck.draw_card())
+
+            print("Dealer's hand: ", dealer_hand, "-Total value: ", dealer_hand.get_hand_value())
+
+            print("Your hand: ", player_hand, "-Total value: ", player_hand.get_hand_value())
             if player_hand.get_hand_value() > 21:
+                print("Bust! You lose.")
+                player_chips -= player_bet
+            elif dealer_hand.get_hand_value() > 21:
+                print("Dealer busts! You win.")
+                player_chips += player_bet
+            elif player_hand.get_hand_value() == 21 and player_hand.is_blackjack():
+                print("Blackjack! You win.")
+                player_chips += player_bet
+            elif dealer_hand.get_hand_value() == 21 and dealer_hand.is_blackjack() == 2:
+                print("Dealer has Blackjack! You lose.")
+                player_chips -= player_bet
+            elif player_hand.get_hand_value() > dealer_hand.get_hand_value():
+                print("You have a higher hand. You win!")
+                player_chips += player_bet
+            elif player_hand.get_hand_value() < dealer_hand.get_hand_value():
+                print("Dealer has a higher hand. You lose.")
+                player_chips -= player_bet
+            else:
+                print("It's a draw!")
+            print("Your chip count: ", player_chips)
+            if player_chips >= chip_target:
+                print("You have reched your chip target!")
                 break
-            player_choice = input("Hit or stand?: ").upper()
 
-        if player_hand.get_hand_value() <= 21:
-            while dealer_hand.get_hand_value() < 17:
-                dealer_hand.add_card(deck.draw_card())
+            if player_chips <= 0:
+                print("You've run out of chips. Either sell your house, car or even your wife.")
+                break
+            gameover_animation()
 
-        print("Dealer's hand: ", dealer_hand, "-Total value: ", dealer_hand.get_hand_value())
-
-        print("Your hand: ", player_hand, "-Total value: ", player_hand.get_hand_value())
-        if player_hand.get_hand_value() > 21:
-            print("Bust! You lose.")
-            player_chips -= player_bet
-        elif dealer_hand.get_hand_value() > 21:
-            print("Dealer busts! You win.")
-            player_chips += player_bet
-        elif player_hand.get_hand_value() == 21 and player_hand.is_blackjack():
-            print("Blackjack! You win.")
-            player_chips += player_bet
-        elif dealer_hand.get_hand_value() == 21 and dealer_hand.is_blackjack() == 2:
-            print("Dealer has Blackjack! You lose.")
-            player_chips -= player_bet
-        elif player_hand.get_hand_value() > dealer_hand.get_hand_value():
-            print("You have a higher hand. You win!")
-            player_chips += player_bet
-        elif player_hand.get_hand_value() < dealer_hand.get_hand_value():
-            print("Dealer has a higher hand. You lose.")
-            player_chips -= player_bet
-        else:
-            print("It's a draw!")
-        print("Your chip count: ", player_chips)
-        if player_chips >= chip_target:
-            print("You have reched your chip target!")
-            break
-
-        if player_chips <= 0:
-            print("You've run out of chips. Either sell your house, car or even your wife.")
-            break
-        gameover_animation()
-
-print("Game over.")
+    print("Game over.")
+except ValueError:
+    print("\nGame interrupted. Thanks for playing!")
+    exit(0)

@@ -41,15 +41,19 @@ class Snake:
         self.score = 0
 
     def grow(self):
-        tail = self.body[-1]
-        if self.direction == "RIGHT":
-            self.body.append([tail[0] - self.size[0], tail[1]])
-        elif self.direction == "LEFT":
-            self.body.append([tail[0] + self.size[0], tail[1]])
-        elif self.direction == "UP":
-            self.body.append([tail[0], tail[1] - self.size[1]])
-        elif self.direction == "DOWN":
-            self.body.append([tail[0], tail[1] + self.size[1]])
+        if len(self.body) >= 2:
+            tail, before_tail = self.body[-1], self.body[-2]
+            new_segment = [tail[0] + (tail[0] - before_tail[0]), tail[1] + (tail[1] - before_tail[1])]
+            self.body.append(new_segment)
+        else:
+            if self.direction == "RIGHT":
+                self.body.append([self.body[-1][0] - self.size[0], self.body[-1][1]])
+            elif self.direction == "LEFT":
+                self.body.append([self.body[-1][0] + self.size[0], self.body[-1][1]])
+            elif self.direction == "UP":
+                self.body.append([self.body[-1][0], self.body[-1][1] + self.size[1]])
+            elif self.direction == "DOWN":
+                self.body.append([self.body[-1][0], self.body[-1][1] - self.size[1]])
 
 
 class Rat:
@@ -80,7 +84,7 @@ while not exit_:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a and snake.direction != "RIGHT":
                 snake.direction = "LEFT"
-                snake.size = (50, 15)  # Snake vertical
+                snake.size = (50, 15)  # Snake horizontal
             elif event.key == pygame.K_d and snake.direction != "LEFT":
                 snake.direction = "RIGHT"
                 snake.size = (50, 15)  # Snake horizontal
@@ -89,7 +93,7 @@ while not exit_:
                 snake.size = (15, 50)  # Snake vertical
             elif event.key == pygame.K_s and snake.direction != "UP":
                 snake.direction = "DOWN"
-                snake.size = (15, 50)  # Snake horizontal
+                snake.size = (15, 50)  # Snake vertical
 
     new_head = [snake.body[0][0], snake.body[0][1]]
 
@@ -102,14 +106,16 @@ while not exit_:
     elif snake.direction == "DOWN":
         new_head[1] += snake.speed
 
-    snake.body = [new_head] + snake.body[:-1]
+    snake_head_rect = pygame.Rect(new_head[0], new_head[1], snake.size[0], snake.size[1])
 
-    snake_head_rect = pygame.Rect(snake.body[0][0], snake.body[0][1], snake.size[0], snake.size[1])
     if snake_head_rect.colliderect(rat.rat_rect):
         rat.spawn()
         snake.score += 1
         snake.grow()
+    else:
+        snake.body.pop()
 
+    snake.body.insert(0, new_head)
     score_text = font.render(f"Score: {snake.score}", True, (255, 255, 255))
     display.blit(score_text, (10, 10))
 

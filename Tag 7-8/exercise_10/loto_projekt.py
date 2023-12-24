@@ -1,6 +1,13 @@
 import random
 
-user_input = int(input("Type in the length for your numbers up until 42: "))
+while True:
+    try:
+        user_input = int(input("Type in the length for your numbers up until 42: "))
+        while user_input > 42:
+            print("Up until 42!")
+    except ValueError:
+        print("")
+
 
 numlist = list(range(1, 43))
 res = list()
@@ -13,10 +20,14 @@ print("""
 
 user_input2 = int(input("Choice: "))
 
+
 if user_input2 == 1:
     usernum = int(input("How many do you want to add?: "))
     for i in range(usernum):
         manual_number_from_user = int(input("Enter a number between 1 and 42: "))
+        while manual_number_from_user > 42:
+            print("That is not in the given range.")
+            manual_number_from_user = int(input("Between 1 and 42: "))
         if manual_number_from_user in numlist:
             res.append(manual_number_from_user)
             numlist.remove(manual_number_from_user)

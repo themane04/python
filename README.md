@@ -1,3 +1,5 @@
+# Python Module
+
 This Python module, offered by my company, featured a variety of exercises designed to enhance my understanding of Python. The curriculum covered everything from fundamental syntax and data types to advanced topics such as defining functions, implementing control structures, and managing error handling. Each exercise was crafted to build upon the previous, progressively deepening my knowledge and skills in Python programming.
 
 The whole module was about a week long, but we worked on the exercises everytime we had some free time. There are some interesting exercises even some games.

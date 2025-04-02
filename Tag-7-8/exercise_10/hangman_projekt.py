@@ -1,5 +1,5 @@
-def clear_screen():
-    print("\n" * 50)
+# def clear_screen():
+#     print("\n" * 50)
 
 
 correct_guesses = []
@@ -16,7 +16,7 @@ else:
     pass
 
 guess_word = input(f"{player1} type in the word: ").upper()
-clear_screen()
+# clear_screen()
 number_of_incorrect_guesses = int(input(f"How many incorrect guesses is {player2} allowed to: "))
 score = number_of_incorrect_guesses
 player_names = [player1, player2]
